@@ -19,9 +19,9 @@ const buttonStyle = {
 
 const iconStyle = {
   display: 'inline-block',
-  width: 200,
+  width: 50,
   margin: 'auto'
-  
+
 };
 
 class IconSelect extends React.Component {

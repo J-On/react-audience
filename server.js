@@ -31,6 +31,10 @@ app.get('/', function(req, res){
   res.sendFile(__dirname + '/client/public/index.html');
 });
 
+app.get('/api/hello', (req, res) => {
+  res.send({ express: 'Express Response Test 2' });
+});
+
 //Open web socket with users and updates user count
 io.on('connection', function(socket){
   userCount +=1;
