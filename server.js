@@ -27,6 +27,8 @@ app.use(bodyParser.json());
 
 app.use(express.static(__dirname + '/client/public'));
 
+
+
 app.get('/', function(req, res){
   res.sendFile(__dirname + '/client/public/index.html');
 });
@@ -34,6 +36,13 @@ app.get('/', function(req, res){
 app.get('/api/hello', (req, res) => {
   res.send({ express: 'Express Response Test 2' });
 });
+
+//Temp non-react admin page
+app.use(express.static(__dirname + '/public'));
+app.get('/admin', function(req, res){
+  res.sendFile(__dirname + '/public/admin.html');
+});
+
 
 //Open web socket with users and updates user count
 io.on('connection', function(socket){

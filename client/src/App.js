@@ -9,7 +9,8 @@ class App extends Component {
     super(props);
     this.state = {
       data: {},
-      response: ''
+      response: '',
+      dbLocation: ''
     };
   }
 
@@ -17,7 +18,14 @@ class App extends Component {
     this.callApi()
       .then(res => this.setState({ response: res.express }))
       .catch(err => console.log(err));
+
+      // Connects to socket.io
       const socket = io('http://localhost:3333');
+
+      socket.on('newQuestion', (data) => {
+        console.log('I am listening');
+        this.setState({dbLocation: data.dbLocation});
+      });
   }
 
   callApi = async () => {
@@ -29,6 +37,8 @@ class App extends Component {
     return body;
   };
 
+
+
   render() {
     return (
       <div className="App">
@@ -37,8 +47,10 @@ class App extends Component {
           <h1 className="App-title">Welcome to React</h1>
         </header>
         <p className="App-intro">
-          To get started, edit <code>src/App.js</code> and save to reload.
           {this.state.response}
+        </p>
+        <p>
+          {this.state.dbLocation}
         </p>
         <QuestionContainer />
       </div>
