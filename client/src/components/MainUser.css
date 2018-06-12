@@ -1,0 +1,28 @@
+.MainUser {
+  text-align: center;
+}
+
+.MainUser-logo {
+  animation: MainUser-logo-spin infinite 20s linear;
+  height: 80px;
+}
+
+.MainUser-header {
+  background-color: #222;
+  height: 150px;
+  padding: 20px;
+  color: white;
+}
+
+.MainUser-title {
+  font-size: 1.5em;
+}
+
+.MainUser-intro {
+  font-size: large;
+}
+
+@keyframes MainUser-logo-spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
