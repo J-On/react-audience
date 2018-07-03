@@ -1,3 +1,4 @@
+
 .MainAdmin {
   text-align: center;
 }
@@ -7,7 +8,9 @@
   height: 80px;
 }
 
+
 .MainAdmin-header {
+  grid-area: 'header';
   background-color: #222;
   height: 150px;
   padding: 20px;
