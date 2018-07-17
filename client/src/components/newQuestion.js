@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
 import Paper from 'material-ui/Paper';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import TextField from 'material-ui/TextField';
@@ -31,14 +30,23 @@ class NewQuestion extends Component {
       <div>
         <MuiThemeProvider>
           <Paper style={style} zDepth={1}>
-            <h3 className='qNum' style={inlineStyle}>{this.props.number}</h3>
-            <TextField hintText={this.props.text} />
+            <h3 className='qNum' style={inlineStyle}>{this.props.position + 1}</h3>
+            <TextField
+              className='questionText'
+              hintText={'Type a Question'}
+              onChange={this.props.handleText}
+              value={this.props.text}
+            />
             <GraphType defaultSelected={this.props.graph} />
             <AnswerType defaultSelected={this.props.answer} />
             <div style={{display: 'inline-block'}}>
-              <RaisedButton label='Add Question' style={buttonStyle} />
-              <RaisedButton label='Remove Question' style={buttonStyle} />
-             </div>
+
+              <RaisedButton label='Remove Question'
+              style={buttonStyle}
+              onClick={this.props.handleRemoveQuestion}
+              data-position={this.props.position}
+              />
+            </div>
           </Paper>
         </MuiThemeProvider>
       </div>

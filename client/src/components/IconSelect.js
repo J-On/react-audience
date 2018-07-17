@@ -9,10 +9,6 @@ import okpanda from './okpanda.svg'
 // import SocialSatisfied from 'material-ui/lib/svg-icons/social/sentiment_satisfied';
 // import SocialVerySatisfied from 'material-ui/lib/svg-icons/social/sentiment_very_satisfied';
 
-const fieldStyle = {
-  marginLeft: 20
-};
-
 const buttonStyle = {
 
 };
@@ -31,9 +27,9 @@ class IconSelect extends React.Component {
     return (
       <MuiThemeProvider>
         <div>
-          <img src={happypanda} style={iconStyle}/>
-          <img src={okpanda} style={iconStyle}/>
-          <img src={unhappypanda} style={iconStyle}/>
+          <img src={happypanda} style={iconStyle} alt="happy"/>
+          <img src={okpanda} style={iconStyle} alt="ok"/>
+          <img src={unhappypanda} style={iconStyle} alt="sad"/>
           <Divider />
           <RaisedButton label="Submit" fullWidth={true} style={buttonStyle} />
         </div>
