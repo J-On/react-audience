@@ -9,9 +9,6 @@ import MainUser from './components/MainUser';
 import MainAdmin from './components/MainAdmin';
 
 class App extends Component {
-  constructor(props) {
-    super(props);
-    };
 
   render() {
     return (

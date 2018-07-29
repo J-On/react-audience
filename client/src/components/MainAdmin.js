@@ -10,23 +10,7 @@ const buttonDivStyle = {
   display: 'block',
   textAlign: 'center',
 }
-//   {
-//   text: "Test Question",
-//   graph: "word",
-//   answer: "short"
-// },
-// {
-//   text: "Blah Blah",
-//   graph: "bar",
-//   answer: "yes_no"
-// }
 
-// <NewQuestion
-//   key={this.state.questions.length}
-//   position={this.state.questions.length}
-//   handleText={this.handleText}
-//   handleRemoveQuestion={this.handleRemoveQuestion}
-// />
 
 class MainAdmin extends Component {
   constructor(props) {
@@ -36,26 +20,30 @@ class MainAdmin extends Component {
     };
     this.handleAddQuestion = this.handleAddQuestion.bind(this);
     this.handleRemoveQuestion = this.handleRemoveQuestion.bind(this);
+    this.handleTextChange = this.handleTextChange.bind(this);
+    this.handleRadioSelect = this.handleRadioSelect.bind(this);
   };
 
+  //Adds a starter question if no questions saved in state
   componentDidMount() {
     if (this.state.questions.length === 0) {
-      {this.handleAddQuestion()}
+      this.handleAddQuestion();
     }
   };
 
-  handleTextChange(event) {
-    // const newText = event.target.value;
-    // newQuestions = this.state.questions.splice();
-    // newQuestions.text = newText;
-    // this.setState({change: event.target.value})
-    this.setState({
+  //Function passed to TextField onChange
+  //Updates the MainAdmin state as the text changes
+  handleTextChange(e, textData, position) {
+    const newState = {questions: this.state.questions.slice()};
+    const questionText = textData;
+    newState.questions[position].text = questionText;
+    console.log('new content = ',newState.questions[position].text);
+    this.setState(newState);
+  }
 
-    });
-  };
-
-// Can use push and pop? for adding and removing items, based on textfield
-
+  //Function passed to Add Question button
+  //Creates a new array entry in the MainAdmin state
+  //which adds a new question box
   handleAddQuestion(e) {
     const newState = {questions: this.state.questions.slice()};
     newState.questions.push({
@@ -64,82 +52,26 @@ class MainAdmin extends Component {
       answer: "yes_no"
     });
     this.setState(newState);
-    console.log('i\'m working!')
+    console.log('i\'m working!');
   };
 
-  handleRemoveQuestion(e) {
+  //Function passed to Remove Question button
+  //Takes the position of the question and removes from the array
+  handleRemoveQuestion(e, position) {
     const newState = {questions: this.state.questions.slice()};
-    const position = e.target.dataset.position;
-    console.log('Removing');
+    console.log('Removing question: ',newState.questions[position].text);
+    console.log('position removed is ', position);
     newState.questions.splice(position, 1);
     this.setState(newState);
   };
 
-
-  // OLD render() {
-  //   if (this.state.questions.length > 0) {
-  //     return (
-  //       <div>
-  //
-  //         <header className="MainAdmin-header">
-  //           <img src={logo} className="MainAdmin-logo" alt="logo" />
-  //           <h1 className="MainAdmin-title">Welcome to the Admin Screen</h1>
-  //         </header>
-  //
-  //         <MuiThemeProvider>
-  //           <div>
-  //             {this.state.questions.map((item, index) =>
-  //               <NewQuestion
-  //                 key={index}
-  //                 position={index}
-  //                 text={item.text}
-  //                 graph={item.graph}
-  //                 answer={item.answer}
-  //                 handleRemoveQuestion={this.handleRemoveQuestion}
-  //               />
-  //             )};
-  //
-  //
-  //             <div style={buttonDivStyle}>
-  //               <RaisedButton label='Add Question' onClick={this.handleAddQuestion}/>
-  //             </div>
-  //           </div>
-  //         </MuiThemeProvider>
-  //       </div>
-  //     );
-  //   }
-  //   else {
-  //     return (
-  //       <div className="MainAdmin">
-  //         <header className="MainAdmin-header">
-  //           <img src={logo} className="MainAdmin-logo" alt="logo" />
-  //           <h1 className="MainAdmin-title">Welcome to the Admin Screen</h1>
-  //         </header>
-  //           <p className="MainAdmin-intro"> Hold Up </p>
-  //           <MuiThemeProvider>
-  //           <div>
-  //               {this.handleAddQuestion()}
-  //
-  //               {this.state.questions.map((item, index) =>
-  //                 <NewQuestion
-  //                   key={index}
-  //                   position={index}
-  //                   text={item.text}
-  //                   graph={item.graph}
-  //                   answer={item.answer}
-  //                   handleRemoveQuestion={this.handleRemoveQuestion}
-  //                 />
-  //               )};
-  //
-  //               <div style={buttonDivStyle}>
-  //                 <RaisedButton label='Add Question'/>
-  //               </div>
-  //             </div>
-  //           </MuiThemeProvider>
-  //       </div>
-  //     );
-  //   }
-  // }
+  //Function passed to radio buttons
+  //Takes selection and passes into MainAdmin state based on position
+  handleRadioSelect(e, value, position, type) {
+    const newState = {questions: this.state.questions.slice()};
+    newState.questions[position][type] = value
+    console.log('new radio value', newState.questions[position], ': ', newState.questions[position][type])
+  }
 
   render() {
       return (
@@ -160,6 +92,9 @@ class MainAdmin extends Component {
                   graph={item.graph}
                   answer={item.answer}
                   handleRemoveQuestion={this.handleRemoveQuestion}
+                  handleTextChange={this.handleTextChange}
+                  datasetInHierarchy={this.datasetInHierarchy}
+                  handleRadioSelect={this.handleRadioSelect}
                 />
               )};
 

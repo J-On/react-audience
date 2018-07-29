@@ -18,7 +18,11 @@ class GraphType extends Component {
     return (
     <div>
       <p style={pStyle}>Graph Type</p>
-      <RadioButtonGroup name='graphSelect' defaultSelected={this.props.defaultSelected}>
+      <RadioButtonGroup
+        name='graph'
+        defaultSelected={this.props.defaultSelected}
+        onChange={(e) => this.props.handleRadioSelect(e, e.target.value, this.props.position, e.target.name)}
+      >
         <RadioButton value='bar' label='Bar Chart' style={buttonStyle}/>
         <RadioButton value='word' label='Word Cloud' style={buttonStyle}/>
         <RadioButton value='pie' label='Pie Chart' style={buttonStyle}/>

@@ -24,28 +24,41 @@ const buttonStyle = {
 
 class NewQuestion extends Component {
 
-
   render(props) {
     return (
       <div>
         <MuiThemeProvider>
           <Paper style={style} zDepth={1}>
-            <h3 className='qNum' style={inlineStyle}>{this.props.position + 1}</h3>
+            <h3 className='qNum' style={inlineStyle}>
+              {this.props.position + 1}
+            </h3>
+
             <TextField
               className='questionText'
               hintText={'Type a Question'}
-              onChange={this.props.handleText}
               value={this.props.text}
+              onChange={(e) => this.props.handleTextChange(e, e.target.value, this.props.position)}
             />
-            <GraphType defaultSelected={this.props.graph} />
-            <AnswerType defaultSelected={this.props.answer} />
-            <div style={{display: 'inline-block'}}>
+
+            <GraphType
+              defaultSelected={this.props.graph}
+              handleRadioSelect={this.props.handleRadioSelect}
+              position={this.props.position}
+            />
+
+            <AnswerType
+              defaultSelected={this.props.answer}
+              handleRadioSelect={this.props.handleRadioSelect}
+              position={this.props.position}
+            />
+
+            <div style={{display: 'inline-block'}} >
 
               <RaisedButton label='Remove Question'
-              style={buttonStyle}
-              onClick={this.props.handleRemoveQuestion}
-              data-position={this.props.position}
+                style={buttonStyle}
+                onClick={(e) => this.props.handleRemoveQuestion(e, this.props.position)}
               />
+
             </div>
           </Paper>
         </MuiThemeProvider>
