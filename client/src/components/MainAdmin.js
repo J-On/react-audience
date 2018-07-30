@@ -4,6 +4,7 @@ import './MainAdmin.css';
 import NewQuestion from './NewQuestion';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import RaisedButton from 'material-ui/RaisedButton';
+import axios from 'axios';
 
 const buttonDivStyle = {
   margin: 10,
@@ -22,6 +23,7 @@ class MainAdmin extends Component {
     this.handleRemoveQuestion = this.handleRemoveQuestion.bind(this);
     this.handleTextChange = this.handleTextChange.bind(this);
     this.handleRadioSelect = this.handleRadioSelect.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
   };
 
   //Adds a starter question if no questions saved in state
@@ -37,7 +39,7 @@ class MainAdmin extends Component {
     const newState = {questions: this.state.questions.slice()};
     const questionText = textData;
     newState.questions[position].text = questionText;
-    console.log('new content = ',newState.questions[position].text);
+    // console.log('new content = ',newState.questions[position].text);
     this.setState(newState);
   }
 
@@ -73,6 +75,29 @@ class MainAdmin extends Component {
     console.log('new radio value', newState.questions[position], ': ', newState.questions[position][type])
   }
 
+  //Fires the questions data from state to the server
+  //Moves the questions data into 'current questions' and empties questions
+  //Displays current questions and resets the questions for admin
+  //Probably need a component/function for taking the state and making it
+  //
+  handleSubmit(e) {
+    const questions = {};
+    let position = 1
+    for (let value of this.state.questions) {
+      questions[position] = value;
+      position ++;
+      console.log('Value is:', questions[position]);
+      console.log('State is:', questions);
+    }
+    axios.post('/submit', questions)
+    .then(function (response) {
+      console.log(response);
+    })
+    .catch(function (error) {
+      console.log(error);
+    })
+  }
+
   render() {
       return (
         <div>
@@ -101,6 +126,7 @@ class MainAdmin extends Component {
 
               <div style={buttonDivStyle}>
                 <RaisedButton label='Add Question' onClick={this.handleAddQuestion}/>
+                <RaisedButton label='Submit' onClick={this.handleSubmit}/>
               </div>
             </div>
           </MuiThemeProvider>

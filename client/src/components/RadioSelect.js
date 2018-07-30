@@ -38,15 +38,6 @@ const pStyle = {
   marginRight: '20px'
 }
 
-var test = this.props.options.map((item, index) =>
-  <RadioButton
-    key={item.value}
-    value={item.value}
-    label={item.label}
-    style={this.props.buttonStyle}
-  />
-)
-
 //Generic Radio Button Select Group component
 //Requires the following props: name, options array with value, label,
 //and a buttonStyle object with CSS
@@ -55,15 +46,10 @@ class RadioSelect extends Component {
     super(props)
   }
 
-componentDidMount() {
-  console.log(this.props.options[0].value)
-  console.log(this.props.name)
-}
-
   render() {
     return (
     <div>
-      <p style={pStyle}>Graph Type</p>
+      <p style={pStyle}>{this.props.name} Type</p>
       <RadioButtonGroup name={this.props.name} defaultSelected={this.props.options[0].value}>
         {this.props.options.map((item, index) =>
           <RadioButton

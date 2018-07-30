@@ -9,12 +9,12 @@ var axios = require('axios');
 var PORT = process.env.PORT || 3333;
 var firebase = require('firebase');
 var config = {
-  apiKey: "AIzaSyBgyCuwZ_k5JgCvF08rf75XJtZSQlzDVOY",
-  authDomain: "word-cloud-poc.firebaseapp.com",
-  databaseURL: "https://word-cloud-poc.firebaseio.com",
-  projectId: "word-cloud-poc",
-  storageBucket: "word-cloud-poc.appspot.com",
-  messagingSenderId: "873961534305"
+  apiKey: "AIzaSyA3vPHLE8uUuHKQrJCr9kVYdeynEnZgFsI",
+  authDomain: "react-audience.firebaseapp.com",
+  databaseURL: "https://react-audience.firebaseio.com",
+  projectId: "react-audience",
+  storageBucket: "",
+  messagingSenderId: "661390622326"
 };
 
 var userCount = null
@@ -75,6 +75,14 @@ app.post('/refresh', function(req, res){
   io.emit('refreshData', refreshData);
   res.sendStatus(201);
 });
+
+//NEW REACT-AUDIENCE HTTP REQUEST/RESPONSES
+
+app.post('/submit', function(req, res) {
+  const questionData = req.body;
+  console.log('request data: ', questionData)
+  res.sendStatus(201);
+})
 
 //Gets server listening for connections on the port
 http.listen(PORT, function(){
