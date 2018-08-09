@@ -2,12 +2,14 @@ import React from 'react';
 
 const numberStyle = {
   display: 'inline-block',
-  fontSize: '4vw'
+  fontSize: '4vw',
+  marginLeft: '1vw',
+  marginRight: '1vw'
 };
 
 const textStyle = {
   display: 'inline-block',
-  fontSize: '2vw'
+  fontSize: '4vw'
 };
 
 class Question extends React.Component {

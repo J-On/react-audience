@@ -5,6 +5,7 @@ import NewQuestion from './NewQuestion';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import RaisedButton from 'material-ui/RaisedButton';
 import axios from 'axios';
+import AdminLiveQuestions from './AdminLiveQuestions';
 
 const buttonDivStyle = {
   margin: 10,
@@ -17,7 +18,8 @@ class MainAdmin extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      questions: []
+      questions: [],
+      liveQuestions: [],
     };
     this.handleAddQuestion = this.handleAddQuestion.bind(this);
     this.handleRemoveQuestion = this.handleRemoveQuestion.bind(this);
@@ -78,25 +80,33 @@ class MainAdmin extends Component {
   //Fires the questions data from state to the server
   //Moves the questions data into 'current questions' and empties questions
   //Displays current questions and resets the questions for admin
-  //Probably need a component/function for taking the state and making it
-  //
   handleSubmit(e) {
+    const oldQuestions = this.state.questions;
     const questions = {};
-    let position = 1
+    let position = 1;
+    let newState = {questions: []};
+
     for (let value of this.state.questions) {
       questions[position] = value;
-      position ++;
       console.log('Value is:', questions[position]);
+      position ++;
       console.log('State is:', questions);
     }
+
     axios.post('/submit', questions)
-    .then(function (response) {
+    .then(response => {
       console.log(response);
+      newState.liveQuestions = oldQuestions;
+      console.log('Live Questions ', newState.liveQuestions);
+      this.setState(newState);
     })
-    .catch(function (error) {
+    .catch(error => {
       console.log(error);
-    })
+    });
   }
+
+
+
 
   render() {
       return (
@@ -109,6 +119,8 @@ class MainAdmin extends Component {
 
           <MuiThemeProvider>
             <div>
+              <AdminLiveQuestions liveQuestions={this.state.liveQuestions} />
+
               {this.state.questions.map((item, index) =>
                 <NewQuestion
                   key={index}
@@ -121,7 +133,7 @@ class MainAdmin extends Component {
                   datasetInHierarchy={this.datasetInHierarchy}
                   handleRadioSelect={this.handleRadioSelect}
                 />
-              )};
+              )}
 
 
               <div style={buttonDivStyle}>
